@@ -29,6 +29,7 @@ After that, you could run any gitbook CLI command inside book folder, with `yarn
 
 ```sh
 $ yarn gitbook help
+$ yarn gitbook init
 $ yarn gitbook build
 $ yarn gitbook serve --port 8080
 ```
