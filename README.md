@@ -1,10 +1,41 @@
 GitBook
 =======
 
-[![NPM version](https://badge.fury.io/js/gitbook.svg)](http://badge.fury.io/js/gitbook)
-[![Linux Build Status](https://travis-ci.org/GitbookIO/gitbook.png?branch=master)](https://travis-ci.org/GitbookIO/gitbook)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/63nlflxcwmb2pue6?svg=true)](https://ci.appveyor.com/project/GitBook/gitbook)
-[![Slack Status](https://slack.gitbook.com/badge.svg)](https://slack.gitbook.com)
+This is a fork of latest opensource GitBook.
+Bugfix is added into this fork, since origin repo wasn't maintained and not accept PR any more.
+
+## Install
+
+Original gitbook uses `gitbook-cli` to install and manage versions. But `gitbook-cli` only works with official gitbook release. This fork is published in another scope so it's unable to be managed by `gitbook-cli`. It needs to be explicitly installed inside a book.
+
+Before you start, make sure [Node.js](https://nodejs.org/) and [yarn](https://yarnpkg.com) is on your system.
+
+Put a file `package.json` into the book folder (an existing book or where you're going to create a book):
+
+```json
+{
+  "scripts": {
+    "postinstall": "gitbook install"
+  },
+  "dependencies": {
+    "@aleung/gitbook": "^3.2.4"
+  }
+}
+```
+
+Run `yarn install` to install this gitbook fork into book folder.
+
+After that, you could run any gitbook CLI command inside book folder, with `yarn` in front of the command. For example:
+
+```sh
+$ yarn gitbook help
+$ yarn gitbook build
+$ yarn gitbook serve --port 8080
+```
+
+
+
+# Original README
 
 GitBook is a command line tool (and Node.js library) for building beautiful books using GitHub/Git and Markdown (or AsciiDoc). Here is an example: [Learn Javascript](https://legacy.gitbook.com/book/GitBookIO/javascript).
 
