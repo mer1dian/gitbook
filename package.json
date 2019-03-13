@@ -1,7 +1,7 @@
 {
-  "name": "@aleung/gitbook",
-  "version": "3.2.4",
-  "homepage": "https://github.com/aleung/gitbook",
+  "name": "gitbk",
+  "version": "3.2.4-rc.1",
+  "homepage": "https://github.com/timaschew/gitbook",
   "description": "Library and cmd utility to generate GitBooks",
   "main": "lib/index.js",
   "browser": "./lib/browser.js",
@@ -74,10 +74,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/aleung/gitbook.git"
+    "url": "https://github.com/timaschew/gitbook.git"
   },
   "bin": {
-    "gitbook": "./bin/gitbook.js"
+    "gitbk": "./bin/gitbook.js"
   },
   "keywords": [
     "git",
@@ -87,7 +87,7 @@
   "author": "FriendCode Inc. <contact@gitbook.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/aleung/gitbook/issues"
+    "url": "https://github.com/timaschew/gitbook/issues"
   },
   "contributors": [
     {
