@@ -9,9 +9,6 @@ var color = require('bash-color');
 
 var gitbook = require('../lib/');
 
-// Which book is concerned?
-var bookRoot = parsedArgv._[1] || process.cwd();
-
 // Helper function for print help
 // indented output by spaces
 function indent_output(n, name, description) {
@@ -35,11 +32,11 @@ function help(commands) {
         _.each(command.options || [], function(option) {
             var after = [];
 
-            if (option.defaults !== undefined) after.push("Default is "+option.defaults);
-            if (option.values) after.push("Values are "+option.values.join(", "));
+            if (option.defaults !== undefined) after.push('Default is '+option.defaults);
+            if (option.values) after.push('Values are '+option.values.join(', '));
 
-            if (after.length > 0) after = "("+after.join("; ")+")";
-            else after = "";
+            if (after.length > 0) after = '('+after.join('; ')+')';
+            else after = '';
 
             var optname = '--';
             if (typeof option.defaults === 'boolean') optname += '[no-]';
@@ -54,7 +51,7 @@ function help(commands) {
 // with a specific set of args/kwargs
 function exec(commands, command, args, kwargs) {
     var cmd = _.find(commands, function(_cmd) {
-        return _.first(_cmd.name.split(" ")) == command;
+        return _.first(_cmd.name.split(' ')) == command;
     });
 
     // Command not found
