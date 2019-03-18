@@ -22,12 +22,14 @@ Some examples:
 | /foo/bar          | /foo/bar        | no     |
 | /foo/bar/         | /foo/bar/       | no     |
 | /foo/bar.html     | /foo/bar.html   | no     |
-| ../foo            | ../../foo       | no     |
-| ../foo/           | ../../foo/      | no     |
+| ../foo            | ../foo          | no     |
+| ../foo/           | ../foo/         | no     |
 | ../foo/bar.html   | ../foo/bar.html | no     |
 | plugins           | plugins         | no     |
 | plugins/          | plugins/        | no     |
 | plugins/README.md | plugins/        | yes    |
+
+See [the tests for more details](https://github.com/timaschew/gitbook/blob/b9664ceeeca6f841a8f11fda122ca2802b93ee4f/lib/output/modifiers/__tests__/resolveLinks.js#L145-L156)
 
 ## Motivation
 
