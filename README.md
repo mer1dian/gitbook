@@ -1,40 +1,63 @@
 GitBook
 =======
 
-This is a fork of latest opensource GitBook.
-Bugfix is added into this fork, since origin repo wasn't maintained and not accept PR any more.
+This is a fork of [GitBook](https://github.com/GitbookIO/gitbook).
+
+You can compare all changes between [this fork and the original version](https://github.com/GitbookIO/gitbook/compare/master...timaschew:do-not-rewrite-urls)
+
+The changes are:
+
+- allow to run this npm module as a CLI (without installing `gitbook-cli`)
+- fix trailing slash for directories
+- provide package-lock.json
+- fix critical vulnerabilities
+- allow to use gitbook plugins which uses npm namespaces/scopes
+  - by using `--scope your-namesapce` option for the `build` subcommand
+- **BREAKING CHANGE:** don't rewrite URLs starting with `/` or `..`
+
+Some examples:
+
+| link (md)         | output (HTML)   | target needs to exist in the gitbook  |
+| -------------     | -------------   | ------ |
+| /foo/bar          | /foo/bar        | no     |
+| /foo/bar/         | /foo/bar/       | no     |
+| /foo/bar.html     | /foo/bar.html   | no     |
+| ../foo            | ../../foo       | no     |
+| ../foo/           | ../../foo/      | no     |
+| ../foo/bar.html   | ../foo/bar.html | no     |
+| plugins           | plugins         | no     |
+| plugins/          | plugins/        | no     |
+| plugins/README.md | plugins/        | yes    |
+
+## Motivation
+
+The original project is not maintained anymore. Even no security fixes are merged.  
+The main reason for this fork is the handling of links. If you use GitBook to build pages distributed
+accross multiple teams and repositories but still want to host all of them
+under one domain you cannot use crosslinks because the original version of GitBooks rewrites 
+URLs which are starting with `/` or pointing to directories outside of the **book.json** via `../`.
 
 ## Install
 
-Original gitbook uses `gitbook-cli` to install and manage versions. But `gitbook-cli` only works with official gitbook release. This fork is published in another scope so it's unable to be managed by `gitbook-cli`. It needs to be explicitly installed inside a book.
+Original gitbook uses `gitbook-cli` to install and manage versions. But `gitbook-cli` only works with official gitbook release. This fork is published in another scope (timaschew/gitbook) so it's unable to be managed by `gitbook-cli`. It needs to be explicitly installed inside a book.
 
-Before you start, make sure [Node.js](https://nodejs.org/) and [yarn](https://yarnpkg.com) is on your system.
+Before you start, make sure [Node.js](https://nodejs.org/) and npm is on your system.
 
-Put a file `package.json` into the book folder (an existing book or where you're going to create a book):
-
-```json
-{
-  "scripts": {
-    "postinstall": "gitbook install"
-  },
-  "dependencies": {
-    "@aleung/gitbook": "^3.2.4"
-  }
-}
+You can either install the module globally or locally in an existing project with an package.json file.
+```sh
+npm install gitbk -g
 ```
 
-Run `yarn install` to install this gitbook fork into book folder.
-
-After that, you could run any gitbook CLI command inside book folder, with `yarn` in front of the command. For example:
+If you don't use global installation, use `./node_modules/.bin/gitbk` or `npx gitbk` to invoke the CLI
 
 ```sh
-$ yarn gitbook help
-$ yarn gitbook init
-$ yarn gitbook build
-$ yarn gitbook serve --port 8080
+mkdir my-new-book
+cd my-new-book
+gitbk init
+gitbk build
 ```
 
-
+---
 
 # Original README
 
