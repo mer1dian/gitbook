@@ -7,10 +7,67 @@
 GitBook
 =======
 
-[![NPM version](https://badge.fury.io/js/gitbook.svg)](http://badge.fury.io/js/gitbook)
-[![Linux Build Status](https://travis-ci.org/GitbookIO/gitbook.png?branch=master)](https://travis-ci.org/GitbookIO/gitbook)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/63nlflxcwmb2pue6?svg=true)](https://ci.appveyor.com/project/GitBook/gitbook)
-[![Slack Status](https://slack.gitbook.com/badge.svg)](https://slack.gitbook.com)
+This is a fork of [GitBook](https://github.com/GitbookIO/gitbook).
+
+You can compare all changes between [this fork and the original version](https://github.com/GitbookIO/gitbook/compare/master...timaschew:do-not-rewrite-urls)
+
+The changes are:
+
+- allow to run this npm module as a CLI (without installing `gitbook-cli`)
+- fix trailing slash for directories
+- provide package-lock.json
+- fix critical vulnerabilities
+- allow to use gitbook plugins which uses npm namespaces/scopes
+  - by using `--scope your-namesapce` option for the `build` subcommand
+- **BREAKING CHANGE:** don't rewrite URLs starting with `/` or `..`
+
+Some examples:
+
+| link (md)         | output (HTML)   | target needs to exist in the gitbook  |
+| -------------     | -------------   | ------ |
+| /foo/bar          | /foo/bar        | no     |
+| /foo/bar/         | /foo/bar/       | no     |
+| /foo/bar.html     | /foo/bar.html   | no     |
+| ../foo            | ../foo          | no     |
+| ../foo/           | ../foo/         | no     |
+| ../foo/bar.html   | ../foo/bar.html | no     |
+| plugins           | plugins         | no     |
+| plugins/          | plugins/        | no     |
+| plugins/README.md | plugins/        | yes    |
+
+See [the tests for more details](https://github.com/timaschew/gitbook/blob/b9664ceeeca6f841a8f11fda122ca2802b93ee4f/lib/output/modifiers/__tests__/resolveLinks.js#L145-L156)
+
+## Motivation
+
+The original project is not maintained anymore. Even no security fixes are merged.  
+The main reason for this fork is the handling of links. If you use GitBook to build pages distributed
+accross multiple teams and repositories but still want to host all of them
+under one domain you cannot use crosslinks because the original version of GitBooks rewrites 
+URLs which are starting with `/` or pointing to directories outside of the **book.json** via `../`.
+
+## Install
+
+Original gitbook uses `gitbook-cli` to install and manage versions. But `gitbook-cli` only works with official gitbook release. This fork is published in another scope (timaschew/gitbook) so it's unable to be managed by `gitbook-cli`. It needs to be explicitly installed inside a book.
+
+Before you start, make sure [Node.js](https://nodejs.org/) and npm is on your system.
+
+You can either install the module globally or locally in an existing project with an package.json file.
+```sh
+npm install gitbk -g
+```
+
+If you don't use global installation, use `./node_modules/.bin/gitbk` or `npx gitbk` to invoke the CLI
+
+```sh
+mkdir my-new-book
+cd my-new-book
+gitbk init
+gitbk build
+```
+
+---
+
+# Original README
 
 GitBook is a command line tool (and Node.js library) for building beautiful books using GitHub/Git and Markdown (or AsciiDoc). Here is an example: [Learn Javascript](https://legacy.gitbook.com/book/GitBookIO/javascript).
 
